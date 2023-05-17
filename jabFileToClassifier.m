@@ -2,7 +2,7 @@ function jabFileToClassifier(injabfile,outmatfile)
 
 jd = loadAnonymous(injabfile);
 multiclassifier_stuff(numel(jd.classifierStuff)) = struct; 
-mult_beh = struct('Lift','',  'Handopen','', 'Grab', '','Supinate','', 'Chew' ,'', 'Atmouth','');
+mult_beh = struct('Lift','',  'Handopen','', 'Grab', '','Supinate','', 'Atmouth' ,'', 'Chew','');
 beh = fieldnames(mult_beh);
 for j=1:numel(jd.classifierStuff)
   inClassifierParams = jd.classifierStuff(j).params;
