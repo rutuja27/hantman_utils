@@ -34,10 +34,13 @@ hoff2 = hoghof_front2{:,(feat_size_front/2)+1:feat_size_front};
 
 side_diff_hog = hogs1 - hogs2; 
 [min_side_diff_hog, max_side_diff_hog] = getMinMax(side_diff_hog);
+[v,id] = mink(min_side_diff_hog, 20);
+fprintf("%d, " ,id);
+fprintf("%.7f, ",v);
 [min_hogs_val , min_hogs_frm] = min(min_side_diff_hog);
 [max_hogs_val , max_hogs_frm] = max(max_side_diff_hog);
-fprintf("Min HOG side %.7f - %d\n", max_hogs_val, max_hogs_frm)
-fprintf("Max HOG side %.7f - %d\n", min_hogs_val, min_hogs_frm)
+fprintf("Min HOG side %.7f - %d\n", min_hogs_val, min_hogs_frm)
+fprintf("Max HOG side %.7f - %d\n", max_hogs_val, max_hogs_frm)
 subplot(4,1,1)
 imagesc(side_diff_hog',[min_hogs_val,max_hogs_val])
 colorbar
@@ -49,8 +52,8 @@ side_diff_hof = hofs1 - hofs2;
 [min_side_diff_hof, max_side_diff_hof] = getMinMax(side_diff_hof);
 [min_hofs_val, min_hofs_frm] = min(min_side_diff_hof);
 [max_hofs_val, max_hofs_frm] = max(max_side_diff_hof);
-fprintf("Min HOF Side %.7f - %d\n", max_hofs_val, max_hofs_frm)
-fprintf("Max HOF Side %.7f - %d\n", min_hofs_val, min_hofs_frm)
+fprintf("Min HOF Side %.7f - %d\n", min_hofs_val, min_hofs_frm)
+fprintf("Max HOF Side %.7f - %d\n", max_hofs_val, max_hofs_frm)
 subplot(4,1,2)
 imagesc(side_diff_hof',[min_hofs_val,max_hofs_val])
 colorbar
@@ -60,8 +63,8 @@ front_diff_hog = hogf1 - hogf2;
 [min_front_diff_hog, max_front_diff_hog] = getMinMax(front_diff_hog);
 [min_hogf_val, min_hogf_frm] = min(min_front_diff_hog);
 [max_hogf_val, max_hogf_frm]= max(max_front_diff_hog);
-fprintf("Min HOG Front %.7f - %d\n", max_hogf_val, max_hogf_frm)
-fprintf("Max HOG Front %.7f - %d\n", min_hogf_val, min_hogf_frm)
+fprintf("Min HOG Front %.7f - %d\n", min_hogf_val, min_hogf_frm)
+fprintf("Max HOG Front %.7f - %d\n", max_hogf_val, max_hogf_frm)
 subplot(4,1,3)
 imagesc(front_diff_hog', [min_hogf_val, max_hogf_val])
 colorbar
@@ -71,8 +74,8 @@ front_diff_hof = hoff1 - hoff2;
 [min_front_diff_hof, max_front_diff_hof] = getMinMax(front_diff_hof);
 [min_hoff_val, min_hoff_frm] = min(min_front_diff_hof);
 [max_hoff_val, max_hoff_frm] = max(max_front_diff_hof);
-fprintf("Min HOG Front %.7f - %d\n", max_hoff_val, max_hoff_frm)
-fprintf("Max HOG Front %.7f - %d\n", min_hoff_val, min_hoff_frm)
+fprintf("Min HOG Front %.7f - %d\n", min_hoff_val, min_hoff_frm)
+fprintf("Max HOG Front %.7f - %d\n", max_hoff_val, max_hoff_frm)
 subplot(4,1,4)
 imagesc(front_diff_hof', [min_hoff_val, max_hoff_val])
 colorbar

@@ -58,5 +58,6 @@ for i=1:nexp
     plot(front_hofc,front_hofm);
     subplot(2,2,4)
     plot(front_hogc,front_hogm);
+    
     disp('Stop');
 end

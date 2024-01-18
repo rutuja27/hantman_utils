@@ -1,0 +1,36 @@
+function runOfflineJAABA_ntimes(fullpathtoscript, exp_dir,  ...
+                                 pathtojaabaconfig, varargin)
+
+   [isVideo, compute_features, ...
+       classify_scores, savefeatures, convertfeattoMatlab] = myparse(varargin, ...
+       'isVideo', '1', ...
+       'compute_features', '1', ...
+       'classify_scores', '1', ...
+       'savefeatures', '1', ...
+       'convertfeattoMatlab', '1');
+
+convertfeattoMatlab = str2double(convertfeattoMatlab);
+for run_id=5:5 
+
+  runcommand = [fullpathtoscript ' -o ' exp_dir ' -j ' pathtojaabaconfig ' -i ' isVideo ' -c ' compute_features ' -l ' classify_scores ' -s ' savefeatures];
+  disp(runcommand)
+  try
+     system(runcommand)
+  catch
+     fclose('all');
+  end
+
+  if(convertfeattoMatlab)
+      cuda2matlab_features('indir',exp_dir);
+  end
+
+   movefile(exp_dir + "/hoghof_side_biasjaaba.csv", exp_dir + ...
+       "/hoghof_side_biasjaaba_" + int2str(run_id) + ".csv")
+   movefile(exp_dir + "/hoghof_front_biasjaaba.csv", exp_dir + ...
+       "/hoghof_front_biasjaaba_" + int2str(run_id) + ".csv")
+   movefile(exp_dir + "/hoghof_avg_side_biasjaaba.csv", exp_dir + ...
+       "/hoghof_avg_side_biasjaaba_" + int2str(run_id) + ".csv")
+   movefile(exp_dir + "/hoghof_avg_front_biasjaaba.csv", exp_dir + ...
+       "/hoghof_avg_front_biasjaaba_" + int2str(run_id) + ".csv")
+   movefile(exp_dir + "/features.mat" , exp_dir + "/features_" + int2str(run_id) + ".mat")
+end

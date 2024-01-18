@@ -1,15 +1,17 @@
-addpath 'C:/Users/27rut/JAABA/spaceTime/'
+function convertFeaturestoMatlab(exp_file, varargin)
 
-jd = loadAnonymous('Y:\hantman_data\jab_experiments\STA14\STA14\20230503\multibeh_STA14_20230503.jab');
-nexp = numel(jd.expDirNames);
-
-for i=1:nexp
-    exp = jd.expDirNames{i};
-    disp(fullfile(exp,'features.mat'))
-    if exist(fullfile(exp,'features.mat'),'file')
-        delete(fullfile(exp,'features.mat'))
+    exp_list = importdata(exp_file);
+    nexp = size(exp_list,1);
+    disp(exp_list)
+    
+    for i=1:nexp
+        exp = exp_list{i};
+        disp(fullfile(exp,'features.mat'))
+        if exist(fullfile(exp,'features.mat'),'file')
+            delete(fullfile(exp,'features.mat'))
+        end
+        cuda2matlab_features('indir',exp);
     end
-    cuda2matlab_features('indir',exp);
 end
 
 

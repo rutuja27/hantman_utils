@@ -1,4 +1,4 @@
-function scr = boost_classifier(cls,feat,exp_dir)
+function scr = boost_classifier(cls,feat,exp_dir, frm)
 
 numWkCls = size(cls.dim,2);
 dim = cls.dim;
@@ -9,20 +9,14 @@ scr=0;
 scores=zeros(1,numWkCls); 
 
 for i=1:numWkCls
-    if i==73
-        fprintf("Dir : %d, thres : %f, " + ...
-            "alpha : %f, dim : %d , scr before : %f , feat val : %f", ...
-            dir(i), tr(i), alpha(i), dim(i), scr, feat(dim(i)))
-    end
+
     if(dir(i) > 0)
+        
         if feat(dim(i)) > tr(i)
            addscores = 1;
         else
             addscores = -1;
-        end
-        if i==73
-            fprintf("*%.7f: %.7f scr intermediate" ,addscores,scr);cuda
-        end   
+        end 
         addscores = addscores * alpha(i);
         scr = scr + addscores;
     else
@@ -30,16 +24,17 @@ for i=1:numWkCls
            addscores = 1;
         else
             addscores = -1;
-        end
-        if i==73
-            fprintf("%.7f: %.7f scr intermediate" ,addscores,scr);
-        end   
+        end 
+
         addscores = addscores * alpha(i);
         scr = scr + addscores;
+
     end
-    if i == 73
-        fprintf(" Scr after : %f", scr)
-    end
-    scores(i) = scr;
+    fprintf("Dir : %d, thres : %.16f, " + ...
+    "alpha : %.16f, dim : %d , scr after : %.16f , feat val : %.16f, cls id: %d \n", ...
+    dir(i), tr(i), alpha(i), dim(i), scr, feat(dim(i)), i)
 end
-save(fullfile(exp_dir,"scores.mat"), 'scores');
+scores(i) = scr;
+save(fullfile(exp_dir,"scores_" + int2str(frm) + ".mat"), 'scores');
+end
+
